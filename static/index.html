@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinGuard — Financial Fraud & Media Forensics</title>
+<meta name="description" content="Check videos, voice recordings, messages, images, and links for signs of scams and fake content with verified evidence and SEBI registry matching.">
+<meta name="theme-color" content="#0E4D34">
+
+<!-- Base API Configuration (Overridable via environment) -->
+<meta name="finguard-api-base" content="">
+
+<!-- Classic Banking Software Design System -->
+<link rel="stylesheet" href="/static/css/banking.css">
+
+<!-- Standard Institutional Favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230E4D34'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- Top Security & System Banner -->
+<div class="fg-top-stripe">
+  <div class="fg-container fg-top-stripe__inner">
+    <span>Institutional Security Verification & Fraud Screening · Version 4.0</span>
+    <span>Decision Support System · Not Official Legal Advice</span>
+  </div>
+</div>
+
+<!-- Main Banking Navigation Header -->
+<header class="fg-header" id="nav-header">
+  <div class="fg-container fg-header__inner">
+    <button class="fg-brand" type="button" data-route="/" aria-label="FinGuard — Home">
+      <svg class="fg-brand__shield" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+      </svg>
+      <div class="fg-brand__text">
+        <span class="fg-brand__title">FinGuard</span>
+        <span class="fg-brand__subtitle">Financial Fraud & Media Verification</span>
+      </div>
+    </button>
+
+    <nav class="fg-nav" id="main-nav" aria-label="Primary navigation">
+      <button class="fg-nav__link" type="button" data-route="/">Home</button>
+      <button class="fg-nav__link" type="button" data-route="/how-it-works">How It Works</button>
+      <button class="fg-nav__link" type="button" data-route="/features">Features</button>
+      <button class="fg-nav__link" type="button" data-route="/technology">Technology</button>
+    </nav>
+
+    <div class="fg-header__actions">
+      <div class="fg-status-pill" id="health" data-state="checking" role="status" aria-live="polite" title="Backend service status">
+        <span class="fg-status-pill__dot"></span>
+        <span id="health-text">Service checking</span>
+      </div>
+
+      <button class="fg-btn fg-btn--sm" type="button" data-route="/analyze">
+        Analyze Now
+      </button>
+
+      <button class="fg-nav-toggle" id="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-controls="main-nav" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main-content">
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 1: HOME LANDING PAGE
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-landing">
+
+  <!-- Hero Section -->
+  <section class="fg-hero fg-hero--landing">
+    <div class="fg-container fg-hero__grid">
+      <div class="fg-hero__copy">
+        <span class="fg-hero__eyebrow">Financial Security & Verification</span>
+        <h1 class="fg-hero__title"><span>Check before</span> <span>you trust<span class="fg-hero__period">.</span></span></h1>
+        <p class="fg-hero__desc">A clearer second look at financial content. Check a clip, message, image, website, or app for signals worth verifying.</p>
+
+        <div class="fg-hero__actions">
+          <button class="fg-btn fg-btn--lg" type="button" data-route="/analyze">
+            Analyze Now
+          </button>
+          <button class="fg-btn fg-btn--secondary fg-btn--lg" type="button" data-route="/how-it-works">
+            How It Works
+          </button>
+        </div>
+
+        <div class="fg-hero__badges">
+          <div class="fg-hero__badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>Configured analysis backend</span>
+          </div>
+          <div class="fg-hero__badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>Temporary-file workflow</span>
+          </div>
+          <div class="fg-hero__badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>Review privacy before upload</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="fg-hero-orbit" aria-label="Separate checks for content and claims">
+        <div class="fg-hero-orbit__halo" aria-hidden="true"></div>
+        <div class="fg-hero-orbit__core" aria-hidden="true">
+          <svg viewBox="0 0 100 116" fill="none">
+            <path d="M50 3 7 19v34c0 28 17 49 43 60 26-11 43-32 43-60V19L50 3Z" fill="#DCEFD7"/>
+            <path d="m50 16-31 12v25c0 20 12 36 31 45 19-9 31-25 31-45V28L50 16Z" fill="#28583E"/>
+            <path d="m37 56 9 9 18-20" stroke="#FFFDF7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="fg-hero-orbit__label fg-hero-orbit__label--one"><span>01</span> MEDIA AUTHENTICITY</div>
+        <div class="fg-hero-orbit__label fg-hero-orbit__label--two"><span>02</span> FINANCIAL CLAIMS</div>
+        <p class="fg-hero-orbit__note">Separate signals.<br>Evidence you can inspect.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Supported Inspection Capabilities -->
+  <section class="fg-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Coverage</span>
+        <h2 class="fg-section-header__title">Supported Media & Content Formats</h2>
+        <p class="fg-section-header__desc">Choose a starting point. Each check shows which formats it accepts.</p>
+      </div>
+
+      <div class="fg-cards-grid">
+        <button class="fg-mode-card" type="button" data-analyze-mode="video">
+          <svg class="fg-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          <h3 class="fg-card__title">Video Analysis</h3>
+          <p class="fg-card__text">Check video frames, audio, and spoken claims as separate signals.</p>
+          <span class="fg-card__tag">MP4 · AVI · MOV · MKV</span>
+          <span class="fg-mode-card__action">Choose video <span aria-hidden="true">↗</span></span>
+        </button>
+
+        <button class="fg-mode-card" type="button" data-analyze-mode="audio">
+          <svg class="fg-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+          <h3 class="fg-card__title">Voice & Audio Recording</h3>
+          <p class="fg-card__text">Inspect a voice note, recording, or podcast for synthetic-audio signals.</p>
+          <span class="fg-card__tag">MP3 · WAV · OGG · M4A · FLAC · AAC</span>
+          <span class="fg-mode-card__action">Choose audio <span aria-hidden="true">↗</span></span>
+        </button>
+
+        <button class="fg-mode-card" type="button" data-analyze-mode="image">
+          <svg class="fg-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <h3 class="fg-card__title">Image & Screenshot OCR</h3>
+          <p class="fg-card__text">Check screenshots and images for visual signals and readable claims.</p>
+          <span class="fg-card__tag">JPG · JPEG · PNG · WEBP · BMP</span>
+          <span class="fg-mode-card__action">Choose image <span aria-hidden="true">↗</span></span>
+        </button>
+
+        <button class="fg-mode-card" type="button" data-analyze-mode="text">
+          <svg class="fg-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <h3 class="fg-card__title">Text & Message Screening</h3>
+          <p class="fg-card__text">Review pasted investment pitches, messages, and social posts.</p>
+          <span class="fg-card__tag">Pasted Messages & Posts</span>
+          <span class="fg-mode-card__action">Check text <span aria-hidden="true">↗</span></span>
+        </button>
+
+        <button class="fg-mode-card" type="button" data-analyze-mode="url">
+          <svg class="fg-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <h3 class="fg-card__title">Website URL & Domain Audit</h3>
+          <p class="fg-card__text">Inspect a website address for phishing and lookalike-domain signals.</p>
+          <span class="fg-card__tag">Web Links & Domains</span>
+          <span class="fg-mode-card__action">Check a URL <span aria-hidden="true">↗</span></span>
+        </button>
+
+        <button class="fg-mode-card" type="button" data-analyze-mode="apk">
+          <svg class="fg-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          <h3 class="fg-card__title">Android APK Inspection</h3>
+          <p class="fg-card__text">Review package details and permissions. APKs are inspected statically, never executed.</p>
+          <span class="fg-card__tag">.APK Files</span>
+          <span class="fg-mode-card__action">Check an APK <span aria-hidden="true">↗</span></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works (Numbered steps) -->
+  <section class="fg-section fg-section--alt" id="how-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Procedure</span>
+        <h2 class="fg-section-header__title">How Verification Works</h2>
+        <p class="fg-section-header__desc">Three steps to review screening signals and decide what to verify next.</p>
+      </div>
+
+      <div class="fg-steps">
+        <div class="fg-step-box">
+          <div class="fg-step-box__num">01</div>
+          <h3 class="fg-step-box__title">Submit Media or Link</h3>
+          <p class="fg-step-box__text">Upload a video, audio recording, image, or APK, or paste a financial message or web address. Uploaded files are sent to the configured backend.</p>
+        </div>
+
+        <div class="fg-step-box">
+          <div class="fg-step-box__num">02</div>
+          <h3 class="fg-step-box__title">Multi-Stage Forensic Screening</h3>
+          <p class="fg-step-box__text">The system screens face frames, analyzes voice frequencies, transcribes speech, evaluates regulatory compliance, and cross-checks SEBI records.</p>
+        </div>
+
+        <div class="fg-step-box">
+          <div class="fg-step-box__num">03</div>
+          <h3 class="fg-step-box__title">Review Evidence Dossier</h3>
+          <p class="fg-step-box__text">Review the findings and evidence returned for that format. Some checks or details may be unavailable; any complaint draft should be reviewed before use.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Scam Warning Signs -->
+  <section class="fg-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Investor Awareness</span>
+        <h2 class="fg-section-header__title">Common Warning Signs of Financial Scams</h2>
+        <p class="fg-section-header__desc">Learn to recognize typical tactics used to deceive retail investors.</p>
+      </div>
+
+      <div class="fg-warning-grid">
+        <div class="fg-warning-card">
+          <h3 class="fg-warning-card__title">Guaranteed High Returns</h3>
+          <p class="fg-warning-card__text">Promises of fixed daily or monthly gains (e.g. "30% profit guaranteed") are a serious warning sign. Market investments carry risk, and claims should be independently checked.</p>
+        </div>
+
+        <div class="fg-warning-card">
+          <h3 class="fg-warning-card__title">Artificial Urgency & Deadlines</h3>
+          <p class="fg-warning-card__text">Claims that "only 5 spots remain" or "offer expires in 10 minutes" are pressure tactics designed to force action before you can verify credentials.</p>
+        </div>
+
+        <div class="fg-warning-card">
+          <h3 class="fg-warning-card__title">Private Chat Groups</h3>
+          <p class="fg-warning-card__text">Some scam campaigns use private groups to promote "exclusive insider tips." A group invitation alone does not establish fraud; verify who is behind any offer.</p>
+        </div>
+
+        <div class="fg-warning-card">
+          <h3 class="fg-warning-card__title">Requests for Credentials or OTP</h3>
+          <p class="fg-warning-card__text">Legitimate investment advisers never ask for your Demat trading password, banking OTP, or UPI PIN. Never share authentication credentials.</p>
+        </div>
+
+        <div class="fg-warning-card">
+          <h3 class="fg-warning-card__title">Celebrity & Executive Deepfakes</h3>
+          <p class="fg-warning-card__text">Scammers use AI to clone voices and animate videos of well-known public figures and business leaders endorsing fake investment schemes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Privacy & Handling Section -->
+  <section class="fg-section fg-section--alt">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Privacy & Security</span>
+        <h2 class="fg-section-header__title">Understand file handling</h2>
+        <p class="fg-section-header__desc">Files are sent to the configured backend for analysis. Review its deployment and retention settings before submitting sensitive content.</p>
+      </div>
+
+      <div class="fg-cards-grid">
+        <div class="fg-card">
+          <h3 class="fg-card__title">Temporary processing</h3>
+          <p class="fg-card__text">The backend may write files to temporary storage while analysis runs. Exact handling depends on its configuration.</p>
+        </div>
+
+        <div class="fg-card">
+          <h3 class="fg-card__title">Check retention settings</h3>
+          <p class="fg-card__text">Confirm the configured service's storage, logs, and cleanup behavior before submitting sensitive information.</p>
+        </div>
+
+        <div class="fg-card">
+          <h3 class="fg-card__title">A decision-support tool</h3>
+          <p class="fg-card__text">FinGuard provides signals to review. It is not a financial authority or a substitute for independent verification.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fg-final-cta">
+    <div class="fg-container fg-final-cta__inner">
+      <div>
+        <span class="fg-hero__eyebrow">Take a closer look</span>
+        <h2>Pause. Check. Then decide.</h2>
+        <p>Run a check on financial content before acting on it.</p>
+      </div>
+      <button class="fg-btn fg-btn--lg" type="button" data-route="/analyze">Analyze Now</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 2: HOW IT WORKS
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-how" hidden>
+  <section class="fg-info-hero">
+    <div class="fg-container fg-info-hero__inner">
+      <span class="fg-hero__eyebrow">A practical second look</span>
+      <h1>How it works</h1>
+      <p>Choose the content you want to check, let the configured FinGuard service inspect it, then review the evidence and any uncertainty.</p>
+      <button class="fg-btn" type="button" data-route="/analyze">Start an analysis</button>
+    </div>
+  </section>
+  <section class="fg-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Three steps</span>
+        <h2 class="fg-section-header__title">From question to evidence</h2>
+        <p class="fg-section-header__desc">A screening result can help guide further checks. It is not a guarantee or a substitute for independent advice.</p>
+      </div>
+
+      <div class="fg-steps">
+        <article class="fg-step-box"><div class="fg-step-box__num">01</div><h3 class="fg-step-box__title">Choose a format</h3><p class="fg-step-box__text">Submit a supported video, audio file, image, message, URL, or APK. File uploads are limited to 100 MB.</p></article>
+        <article class="fg-step-box"><div class="fg-step-box__num">02</div><h3 class="fg-step-box__title">Review separate signals</h3><p class="fg-step-box__text">Depending on the format, the backend may check authenticity, claims, registry references, or links. Missing checks are shown as unavailable.</p></article>
+        <article class="fg-step-box"><div class="fg-step-box__num">03</div><h3 class="fg-step-box__title">Verify before acting</h3><p class="fg-step-box__text">Read the evidence, check registration details through official sources, and use any complaint draft only after reviewing it.</p></article>
+      </div>
+      <div class="fg-info-note"><b>Keep these ideas separate:</b> Synthetic media is not automatically fraudulent, and genuine media is not automatically safe. A report is one input to your own verification.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 3: FEATURES
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-features" hidden>
+  <section class="fg-info-hero">
+    <div class="fg-container fg-info-hero__inner">
+      <span class="fg-hero__eyebrow">What you can check</span>
+      <h1>Signals, not assumptions.</h1>
+      <p>FinGuard supports several kinds of financial content. The checks available depend on the format and on which fields the backend returns.</p>
+      <button class="fg-btn" type="button" data-route="/analyze">Choose a format</button>
+    </div>
+  </section>
+  <section class="fg-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Six input modes</span>
+        <h2 class="fg-section-header__title">One workspace, focused checks</h2>
+      </div>
+
+      <div class="fg-cards-grid">
+        <article class="fg-card"><h3 class="fg-card__title">Video & audio</h3><p class="fg-card__text">Separate visual and voice authenticity signals; transcript and claims where returned.</p><span class="fg-card__tag">MP4 · AVI · MOV · MKV · Audio formats</span></article>
+        <article class="fg-card"><h3 class="fg-card__title">Images</h3><p class="fg-card__text">Visual analysis and text extraction may help surface details in a screenshot.</p><span class="fg-card__tag">JPG · JPEG · PNG · WEBP · BMP</span></article>
+        <article class="fg-card"><h3 class="fg-card__title">Text & messages</h3><p class="fg-card__text">Review financial claims, pressure language, and available links in pasted content.</p><span class="fg-card__tag">Paste text</span></article>
+        <article class="fg-card"><h3 class="fg-card__title">Website URLs</h3><p class="fg-card__text">Check returned domain and phishing findings for a submitted address.</p><span class="fg-card__tag">Website or domain</span></article>
+        <article class="fg-card"><h3 class="fg-card__title">Android APK</h3><p class="fg-card__text">Inspect package information and permissions. The application is never executed.</p><span class="fg-card__tag">Static inspection</span></article>
+        <article class="fg-card"><h3 class="fg-card__title">Evidence report</h3><p class="fg-card__text">Review returned findings, timestamps, and a pre-filing complaint draft where available.</p><span class="fg-card__tag">Backend-provided data</span></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 4: TECHNOLOGY
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-technology" hidden>
+  <section class="fg-info-hero">
+    <div class="fg-container fg-info-hero__inner">
+      <span class="fg-hero__eyebrow">Technology & limitations</span>
+      <h1>How the checks fit together.</h1>
+      <p>Different inputs use different backend checks. Results should be read as evidence to review—not as a promise of safety or a legal determination.</p>
+      <button class="fg-btn" type="button" data-route="/analyze">Explore the workspace</button>
+    </div>
+  </section>
+  <section class="fg-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">The approach</span>
+        <h2 class="fg-section-header__title">Separate checks. Honest uncertainty.</h2>
+      </div>
+
+      <div class="fg-info-grid">
+        <article class="fg-card"><span class="fg-card__tag">01 / Independent modalities</span><h3 class="fg-card__title">Authenticity is not intent</h3><p class="fg-card__text">Media authenticity and financial claims are evaluated separately. A synthetic signal alone does not prove a scam; genuine media does not prove an offer is safe.</p></article>
+        <article class="fg-card"><span class="fg-card__tag">02 / Backend-confirmed</span><h3 class="fg-card__title">No invented progress or fields</h3><p class="fg-card__text">The interface displays reported stages and response fields. When a value is missing, it is shown as unavailable rather than estimated.</p></article>
+        <article class="fg-card"><span class="fg-card__tag">03 / Know the limits</span><h3 class="fg-card__title">A screening tool, not a verdict on truth</h3><p class="fg-card__text">Compression, poor lighting, background noise, incomplete context, and model limitations can affect results. Independently verify important claims and credentials.</p></article>
+        <article class="fg-card"><span class="fg-card__tag">04 / APK static analysis</span><h3 class="fg-card__title">Apps are not run</h3><p class="fg-card__text">APK checks inspect package information and permissions without executing the app.</p></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 5: ANALYSIS WORKSPACE
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-analyze" hidden>
+  <section class="fg-section">
+    <div class="fg-container">
+      <div class="fg-section-header">
+        <span class="fg-section-header__eyebrow">Inspection Workspace</span>
+        <h2 class="fg-section-header__title">Submit Media or Content for Analysis</h2>
+        <p class="fg-section-header__desc">Select the content type below and submit for local multi-stage forensic screening.</p>
+      </div>
+
+      <div class="fg-workspace">
+        <!-- Main Form Area -->
+        <div>
+          <!-- Tabbed Mode Switcher -->
+          <div class="fg-tabs" role="tablist" aria-label="Select content type">
+            <button class="fg-tab" type="button" role="tab" data-mode="video" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+              Video
+            </button>
+            <button class="fg-tab" type="button" role="tab" data-mode="audio" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+              Audio
+            </button>
+            <button class="fg-tab" type="button" role="tab" data-mode="image" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Image
+            </button>
+            <button class="fg-tab" type="button" role="tab" data-mode="text" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Text
+            </button>
+            <button class="fg-tab" type="button" role="tab" data-mode="url" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              URL
+            </button>
+            <button class="fg-tab" type="button" role="tab" data-mode="apk" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              APK
+            </button>
+          </div>
+
+          <!-- Dynamic Input Slot -->
+          <div id="workspace-slot"></div>
+
+          <!-- Validation & Error Banner -->
+          <div id="workspace-error" class="fg-alert fg-alert--error" aria-live="assertive" hidden></div>
+        </div>
+
+        <!-- Sidebar: Execution Plan & Retention -->
+        <aside>
+          <div class="fg-sidebar-panel">
+            <h3 class="fg-sidebar-panel__title" id="sidebar-plan-title">Pipeline Execution</h3>
+            <p class="fg-sidebar-panel__info" id="sidebar-plan-info"></p>
+            <ol class="fg-stages-list" id="sidebar-stages-list"></ol>
+          </div>
+
+          <div class="fg-sidebar-panel">
+            <h3 class="fg-sidebar-panel__title">Data Handling & Privacy</h3>
+            <p style="font-size:0.8125rem;color:var(--text-secondary);line-height:1.5;margin-bottom:0.5rem;">
+              Files are held exclusively in an isolated temporary folder for the duration of the analysis and deleted immediately upon completion.
+            </p>
+            <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0;">
+              No cloud transmission occurs unless explicitly configured.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 6: LOADING & SCAM-AWARENESS TIPS
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-analysis" hidden>
+  <section class="fg-live fg-container" aria-labelledby="live-title">
+    <div class="fg-live__masthead">
+      <div>
+        <span class="fg-live__eyebrow">FinGuard / Live inspection</span>
+        <h1 class="fg-live__title" id="live-title">Checking the signals.</h1>
+      </div>
+      <button class="fg-btn fg-btn--ghost fg-btn--sm" id="cancel-analysis-btn" type="button">
+        Cancel analysis
+      </button>
+    </div>
+
+    <div class="fg-live__layout">
+      <div class="fg-live__primary">
+        <section class="fg-live__hero" aria-label="Current analysis status">
+          <div class="fg-live__visual" aria-hidden="true">
+            <span class="fg-live__orbit fg-live__orbit--outer"></span>
+            <span class="fg-live__orbit fg-live__orbit--inner"></span>
+            <svg class="fg-live__shield" viewBox="0 0 100 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M50 3 7 19v34c0 28 17 49 43 60 26-11 43-32 43-60V19L50 3Z" fill="#DCEFD7" stroke="#FFFDF7" stroke-width="2"/>
+              <path d="m50 14-32 12v27c0 20 12 36 32 46 20-10 32-26 32-46V26L50 14Z" fill="#28583E"/>
+              <path d="m37 57 9 9 19-21" stroke="#FFFDF7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="fg-live__visual-label">LOCAL<br>ANALYSIS</span>
+          </div>
+
+          <div class="fg-live__readout">
+            <div class="fg-live__mode-line">
+              <span class="fg-live__mode" id="analysis-mode">VIDEO ANALYSIS</span>
+              <span class="fg-live__state" id="analysis-state">Connecting to backend</span>
+            </div>
+            <p class="fg-live__filename" id="loading-filename" title="Submitted content">Preparing your content…</p>
+            <p class="fg-live__activity" id="loading-status-text" aria-live="polite">Submitting your request securely.</p>
+            <div class="fg-live__progress">
+              <div class="fg-live__progress-meta">
+                <span id="loading-stage-label">Waiting for backend status</span>
+                <span class="fg-live__stage-count" id="loading-stage-count">—</span>
+              </div>
+              <div class="fg-progress-track" id="loading-track" data-indeterminate="true" role="progressbar" aria-label="Analysis progress" aria-valuemin="0" aria-valuemax="100">
+                <div class="fg-progress-bar" id="loading-bar"></div>
+              </div>
+              <p class="fg-live__honesty">Progress updates are shown only when reported by the backend.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="fg-live__stages" id="analysis-stage-panel" aria-labelledby="analysis-stage-title" hidden>
+          <div class="fg-live__section-head">
+            <div>
+              <span class="fg-live__eyebrow">Pipeline trace</span>
+              <h2 id="analysis-stage-title">Video analysis stages</h2>
+            </div>
+            <span class="fg-live__job" id="analysis-job-ref">Job reference pending</span>
+          </div>
+          <ol class="fg-live__stage-list" id="analysis-stage-list"></ol>
+        </section>
+
+        <p class="fg-live__sync-note" id="analysis-sync-note" hidden>
+          This scan returns one final response. Intermediate stage updates are not provided for this mode, so no individual stages are marked complete.
+        </p>
+      </div>
+
+      <aside class="fg-live__aside">
+        <section class="fg-live__tip" aria-label="Scam awareness tip" aria-live="polite">
+          <div class="fg-live__tip-head">
+            <span class="fg-live__eyebrow">Worth remembering</span>
+            <span class="fg-tip-box__count" id="tip-counter">Tip 1 / 18</span>
+          </div>
+          <p class="fg-tip-box__text" id="tip-content">Never share your OTP, even with someone claiming to be from your bank or regulatory authority.</p>
+          <div class="fg-tip-box__controls">
+            <button class="fg-tip-btn" id="tip-prev-btn" type="button" aria-label="Previous tip">←</button>
+            <button class="fg-tip-btn" id="tip-next-btn" type="button" aria-label="Next tip">→</button>
+          </div>
+        </section>
+        <p class="fg-live__disclaimer">Authenticity and scam signals are assessed separately. A synthetic voice alone does not mean the content is fraudulent.</p>
+      </aside>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     VIEW 7: RESULTS & FORENSIC REPORT
+     ═══════════════════════════════════════════════════════════════════ -->
+<div class="fg-view" id="view-results" hidden>
+  <div class="fg-container fg-report" id="report-container">
+    <!-- Rendered dynamically by main.js -->
+  </div>
+</div>
+
+</main>
+
+<!-- Institutional Footer -->
+<footer class="fg-footer">
+  <div class="fg-container">
+    <div class="fg-footer__grid">
+      <div class="fg-footer__about">
+        <div class="fg-brand">
+          <svg class="fg-brand__shield" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+          <span class="fg-brand__title">FinGuard</span>
+        </div>
+        <p>Institutional forensic verification platform for financial media. Detects deepfakes, synthetic speech, misleading advisory claims, and unlicensed entities with verifiable evidence.</p>
+        <p><b>Privacy note:</b> Submissions are processed by the configured FinGuard backend. Avoid uploading material you do not have permission to share.</p>
+      </div>
+
+      <div class="fg-footer__col">
+        <h4>Navigation</h4>
+        <ul class="fg-footer__links">
+          <li><button type="button" data-route="/">Home</button></li>
+          <li><button type="button" data-route="/how-it-works">How It Works</button></li>
+          <li><button type="button" data-route="/features">Features</button></li>
+          <li><button type="button" data-route="/technology">Technology</button></li>
+          <li><button type="button" data-route="/analyze">Analyze Media</button></li>
+        </ul>
+      </div>
+
+      <div class="fg-footer__col">
+        <h4>Official References</h4>
+        <ul class="fg-footer__links">
+          <li><a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer">SEBI SCORES 2.0 Portal</a></li>
+          <li><a href="https://www.sebi.gov.in" target="_blank" rel="noopener noreferrer">Official SEBI Website</a></li>
+          <li><a href="https://cybercrime.gov.in" target="_blank" rel="noopener noreferrer">National Cyber Crime Reporting</a></li>
+          <li><a href="/api/health" target="_blank">System Health Check</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="fg-footer__base">
+      <span>FinGuard · Forensic Media & Regulatory Fraud Intelligence</span>
+      <span>Decision Support Tool · Independently verify investment advisers prior to transaction</span>
+      <span>Supported: MP4, AVI, MOV, MKV · MP3, WAV, OGG, M4A, FLAC, AAC · JPG, JPEG, PNG, WEBP, BMP · APK</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="/static/js/main.js?v=4.0.2"></script>
+</body>
+</html>
